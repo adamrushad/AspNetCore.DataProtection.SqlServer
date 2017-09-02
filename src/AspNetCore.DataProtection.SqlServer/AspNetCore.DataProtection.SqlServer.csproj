@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <PackageId>AspNetCore.DataProtection.SqlServer</PackageId>
     <PackageVersion>$(Version)</PackageVersion>
-    <Authors>Adam Walters</Authors>
+    <Authors>adamrushad</Authors>
     <Summary>SQL Server repository for DataProtection keys</Summary>
     <Description>$(Summary)</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
