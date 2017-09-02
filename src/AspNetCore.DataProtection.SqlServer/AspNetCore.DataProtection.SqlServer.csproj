@@ -2,13 +2,14 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.3;netstandard2.0</TargetFrameworks>
     <PackageId>AspNetCore.DataProtection.SqlServer</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>$(Version)</PackageVersion>
     <Authors>Adam Walters</Authors>
-    <Description>SQL Server backend for DataProtection keys</Description>
+    <Summary>SQL Server repository for DataProtection keys</Summary>
+    <Description>$(Summary)</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <PackageReleaseNotes>Implements a DataProtection key storage system on top of Microsoft SQL Server. Targets .NET Standard 1.3 and .NET Standard 2.0, which should allow for it to be used in nearly any .NET Core application.</PackageReleaseNotes>
+    <PackageReleaseNotes>Implements a DataProtection key repository in Microsoft SQL Server. Targets .NET Standard 1.3 and .NET Standard 2.0, which should allow for it to be used in nearly any .NET Core application.</PackageReleaseNotes>
     <Copyright>Copyright 2017 (c) Adam Walters. All rights reserved.</Copyright>
-    <PackageTags>aspnetcore dataprotection</PackageTags>
+    <PackageTags>aspnetcore;dataprotection;'sql server';sql;netcore</PackageTags>
     <PackageLicenseUrl>https://raw.githubusercontent.com/abwalters/AspNetCore.DataProtection.SqlServer/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/abwalters/AspNetCore.DataProtection.SqlServer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/abwalters/AspNetCore.DataProtection.SqlServer</RepositoryUrl>
