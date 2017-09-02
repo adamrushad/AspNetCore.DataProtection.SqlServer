@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
@@ -56,7 +56,7 @@ namespace AspNetCore.DataProtection.SqlServer
             using (SqlConnection _conn = new SqlConnection(_connStr))
             {
                 _conn.Open();
-                using (SqlTransaction trx = _conn.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                using (SqlTransaction trx = _conn.BeginTransaction(IsolationLevel.Serializable))
                 {
                     using (SqlCommand cmd = new SqlCommand($@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = @schema)
 EXEC('CREATE SCHEMA [{_schema}] AUTHORIZATION [dbo]')
@@ -64,8 +64,8 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = @sch
 CREATE TABLE [{_schema}].[{_table}](FriendlyName NVARCHAR(449) NOT NULL, XmlData NVARCHAR(MAX) NOT NULL, CONSTRAINT pk_FriendlyName PRIMARY KEY ([FriendlyName]))", _conn, trx))
                     {
                         //throw new Exception(cmd.CommandText);
-                        cmd.Parameters.Add("@schema", System.Data.SqlDbType.NVarChar).Value = schema;
-                        cmd.Parameters.Add("@table", System.Data.SqlDbType.NVarChar).Value = table;
+                        cmd.Parameters.Add("@schema", SqlDbType.NVarChar).Value = schema;
+                        cmd.Parameters.Add("@table", SqlDbType.NVarChar).Value = table;
                         cmd.ExecuteNonQuery();
                     }
                     trx.Commit();
@@ -99,15 +99,15 @@ CREATE TABLE [{_schema}].[{_table}](FriendlyName NVARCHAR(449) NOT NULL, XmlData
             using (SqlConnection _conn = new SqlConnection(_connStr))
             {
                 _conn.Open();
-                using (SqlTransaction trx = _conn.BeginTransaction(System.Data.IsolationLevel.Serializable))
+                using (SqlTransaction trx = _conn.BeginTransaction(IsolationLevel.Serializable))
                 {
                     using (SqlCommand cmd = new SqlCommand($@"IF EXISTS (SELECT * FROM [{_schema}].[{_table}] WHERE [FriendlyName] = @friendlyName)
   UPDATE [{_schema}].[{_table}] SET [XmlData] = @xmlData WHERE [FriendlyName] = @friendlyName
 ELSE
   INSERT INTO [{_schema}].[{_table}] ([FriendlyName], [XmlData]) VALUES(@friendlyName, @xmlData)", _conn, trx))
                     {
-                        cmd.Parameters.Add("@friendlyName", System.Data.SqlDbType.NVarChar).Value = friendlyName;
-                        cmd.Parameters.Add("@xmlData", System.Data.SqlDbType.NVarChar).Value = element.ToString();
+                        cmd.Parameters.Add("@friendlyName", SqlDbType.NVarChar).Value = friendlyName;
+                        cmd.Parameters.Add("@xmlData", SqlDbType.NVarChar).Value = element.ToString();
                         cmd.ExecuteNonQuery();
                     }
                     trx.Commit();

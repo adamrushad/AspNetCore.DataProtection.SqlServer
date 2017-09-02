@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 
 namespace AspNetCore.DataProtection.SqlServer
 {
@@ -16,11 +18,14 @@ namespace AspNetCore.DataProtection.SqlServer
                 throw new ArgumentNullException(nameof(builder));
             }
 
+#if NETSTANDARD1_3
+            builder.Services.TryAddSingleton<IXmlRepository>(services => new SqlServerXmlRepository(connectionString, schema, table));
+#elif NETSTANDARD2_0
             builder.Services.Configure<KeyManagementOptions>(options =>
             {
                 options.XmlRepository = new SqlServerXmlRepository(connectionString, schema, table);
             });
-
+#endif
             return builder;
         }
     }

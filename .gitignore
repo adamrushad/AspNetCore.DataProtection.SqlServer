@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/src/.vs
+/src/AspNetCore.DataProtection.SqlServer/bin
+/src/AspNetCore.DataProtection.SqlServer/obj
