@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>AspNetCore.DataProtection.SqlServer</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Adam Walters</Authors>
+    <Description>SQL Server backend for DataProtection keys</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>Initial release. Implements a DataProtection key storage system on top of Microsoft SQL Server.</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Adam Walters. All rights reserved.</Copyright>
+    <PackageTags>aspnetcore dataprotection</PackageTags>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/abwalters/AspNetCore.DataProtection.SqlServer/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/abwalters/AspNetCore.DataProtection.SqlServer</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/abwalters/AspNetCore.DataProtection.SqlServer</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" Version="2.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="dotnet pack --no-build -c &quot;$(ConfigurationName)&quot;" />
+  </Target>
+
+</Project>
