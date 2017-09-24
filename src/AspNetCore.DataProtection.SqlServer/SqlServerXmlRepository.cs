@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore.DataProtection.Repositories;
+﻿/*
+ * Copyright (c) 2017 Adam Walters
+ * Licensed under the terms of the MIT license
+ * License available at: https://raw.githubusercontent.com/abwalters/AspNetCore.DataProtection.SqlServer/master/LICENSE
+ */
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +14,9 @@ using System.Xml.Linq;
 
 namespace AspNetCore.DataProtection.SqlServer
 {
+    /// <summary>
+    /// SQL Server backed XmlRepository for DataProtection keys
+    /// </summary>
     public class SqlServerXmlRepository : IXmlRepository
     {
         private string _connStr;
@@ -22,6 +30,12 @@ namespace AspNetCore.DataProtection.SqlServer
             return _regex.IsMatch(identifierName);
         }
 
+        /// <summary>
+        /// Constructor for the SQL-backed XmlRepository for DataProtection keys
+        /// </summary>
+        /// <param name="connectionString">SQL server connection string</param>
+        /// <param name="schema">Schema name under which to store DataProtection keys</param>
+        /// <param name="table">Table name in which to store DataProtection keys</param>
         public SqlServerXmlRepository(string connectionString, string schema = "DataProtection", string table = "Keys")
         {
             if (string.IsNullOrWhiteSpace(connectionString))
@@ -73,6 +87,10 @@ CREATE TABLE [{_schema}].[{_table}](FriendlyName NVARCHAR(449) NOT NULL, XmlData
             }
         }
 
+        /// <summary>
+        /// Gets all keys from Database
+        /// </summary>
+        /// <returns>A collection of XML formatted keys from the database</returns>
         public IReadOnlyCollection<XElement> GetAllElements()
         {
             List<XElement> list = new List<XElement>();
@@ -94,6 +112,11 @@ CREATE TABLE [{_schema}].[{_table}](FriendlyName NVARCHAR(449) NOT NULL, XmlData
             return new ReadOnlyCollection<XElement>(list);
         }
 
+        /// <summary>
+        /// Stores a DataProtection key into the Database
+        /// </summary>
+        /// <param name="element">XML to store</param>
+        /// <param name="friendlyName">Name to store the XML under</param>
         public void StoreElement(XElement element, string friendlyName)
         {
             using (SqlConnection _conn = new SqlConnection(_connStr))

@@ -6,3 +6,4 @@
 /src/.vs
 /src/AspNetCore.DataProtection.SqlServer/bin
 /src/AspNetCore.DataProtection.SqlServer/obj
+/src/AspNetCore.DataProtection.SqlServer/AspNetCore.DataProtection.SqlServer.xml
